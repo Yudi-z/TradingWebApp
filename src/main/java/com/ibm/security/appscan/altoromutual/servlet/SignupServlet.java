@@ -8,6 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This servlet handles site signup operation
+ * @author Yudi
+ */
 public class SignupServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
