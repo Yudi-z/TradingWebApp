@@ -13,7 +13,7 @@
 </head>
 <body>
 <!-- action="addUser" -->
-<form method="post" name="addUser" action="<%=ServletUtil.getAppProperty("enableAdminFunctions").equalsIgnoreCase("true")?"addUser":"" %>" id="addUser" onsubmit="return confirmpass(this);">
+<form method="post" name="addUser" action="signup/addUser" id="addUser" onsubmit="return confirmpass(this);">
     <tr>
         <td colspan="4"><h2><br><br>Add an new user</h2></td>
     </tr>
