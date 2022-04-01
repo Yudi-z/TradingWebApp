@@ -140,6 +140,15 @@
   </servlet>
   <servlet>
     <description>
+    </description>
+    <display-name>
+      SignupServlet</display-name>
+    <servlet-name>SignupServlet</servlet-name>
+    <servlet-class>
+      com.ibm.security.appscan.altoromutual.servlet.SignupServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>
 		</description>
     <display-name>
 		AdminLoginServlet</display-name>
@@ -207,6 +216,10 @@
   <servlet-mapping>
     <servlet-name>AdminServlet</servlet-name>
     <url-pattern>/admin/addUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SignupServlet</servlet-name>
+    <url-pattern>/signup/addUser</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdminLoginServlet</servlet-name>
