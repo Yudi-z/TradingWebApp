@@ -22,24 +22,19 @@ public class yahooUtil {
         }
     }
 
-    public static void getStock(String Ticker){
+    public static List<HistoricalQuote> getStock(String Ticker){
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
-        from.add(Calendar.YEAR, -1); // from 5 years ago
+        from.add(Calendar.YEAR, -5); // from 5 years ago
 
         try {
             Stock stock = YahooFinance.get(Ticker);
-            List<HistoricalQuote> stockHistQuotes = stock.getHistory(from, to, Interval.MONTHLY);
-            for (int i=0;i<stockHistQuotes.size();i++) {
-                Double adjClose = stockHistQuotes.get(i).getAdjClose().doubleValue();
-                Timestamp time = new Timestamp(stockHistQuotes.get(i).getDate().getTimeInMillis());
-                String ret = "Time: "+time + ", Stock: "+ Ticker + ", Adjusted close price: "+ adjClose;
-                System.out.println(ret);
-            }
-
+            List<HistoricalQuote> stockHistQuotes = stock.getHistory(from, to, Interval.DAILY);
+            return stockHistQuotes;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -47,7 +42,13 @@ public class yahooUtil {
      * @param args
      */
     public static void main(String[] args) {
-        getStock("GOOG");
+        List<HistoricalQuote> stockHistQuotes = getStock("GOOG");
+        for (int i=0;i<stockHistQuotes.size();i++) {
+            Double adjClose = stockHistQuotes.get(i).getAdjClose().doubleValue();
+            Timestamp time = new Timestamp(stockHistQuotes.get(i).getDate().getTimeInMillis());
+            String ret = "Time: "+time + ", Stock: "+ "GOOG" + ", Adjusted close price: "+ adjClose;
+            System.out.println(ret);
+        }
 //        yahooUtil.getGOOG();
 //    System.out.println(google);
     }
