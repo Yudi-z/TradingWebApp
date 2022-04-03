@@ -40,7 +40,8 @@ response.setHeader("Pragma","no-cache");
 	 		<% String specialLink = ServletUtil.getAppProperty("specialLink"); %> 
             <li><a id="MenuHyperLink4" href="<%=(specialLink != null && specialLink.length()>0)? specialLink : (request.getContextPath()+"/bank/queryxpath.jsp")%>">Search News Articles</a></li>
             <li><a id="MenuHyperLink5" href="<%=request.getContextPath()%>/bank/customize.jsp">Customize Site Language</a></li>
-        </ul>
+			<li><a id="MenuHyperLink6" href="<%=request.getContextPath()%>/bank/trade.jsp">Trade Stocks</a></li>
+		</ul>
 		<%if (user.getRole() == User.Role.Admin){ %>
 		<span id="_ctl0__ctl0_Content_Administration">
 			<br style="line-height: 10px;"/>

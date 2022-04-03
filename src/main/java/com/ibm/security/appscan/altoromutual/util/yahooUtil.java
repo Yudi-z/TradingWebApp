@@ -42,6 +42,10 @@ public class yahooUtil {
         }
     }
 
+    /**
+     * Only for testing usage
+     * @param args
+     */
     public static void main(String[] args) {
         getStock("GOOG");
 //        yahooUtil.getGOOG();
