@@ -14,6 +14,7 @@
     <jsp:include page="membertoc.jspf"/>
         <td valign="top" colspan="3" class="bb">
             <%@page import="com.ibm.security.appscan.altoromutual.model.Account"%>
+            <%@page import="com.ibm.security.appscan.altoromutual.util.DBUtil"%>
             <div class="fl" style="width: 99%;">
 <%--                <jsp:include page="port_sidebar.jspf.jspf"/>--%>
 
@@ -21,8 +22,12 @@
                     com.ibm.security.appscan.altoromutual.model.User user = (com.ibm.security.appscan.altoromutual.model.User)request.getSession().getAttribute("user");
                 %>
 
-                <h1>Hello <%= user.getFirstName() + " " + user.getLastName() %>
-                </h1>
+        <h3>Watch List</h3>
+        <form method="post" name="stockForm" action="addStock" id="stockForm" >
+            Enter Ticker Symbol: <input type="text" name="ticker">
+            <input type="submit" name="addButton" value="Add">
+        </form>
+
 
         <td valign="top" class="cc br bb">
             <br style="line-height: 10px;"/>

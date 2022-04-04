@@ -18,12 +18,7 @@ IBM AltoroJ
 
 package com.ibm.security.appscan.altoromutual.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,6 +128,7 @@ public class DBUtil {
 					throw e;
 				}
 			}
+
 
 		}
 		
@@ -544,7 +540,11 @@ public class DBUtil {
 				Double adjClose = stockHistQuotes.get(i).getAdjClose().doubleValue();
 				Timestamp time = new Timestamp(stockHistQuotes.get(i).getDate().getTimeInMillis());
 				String ret = "Time: "+time + ", Stock: "+ Ticker + ", Adjusted close price: "+ adjClose;
-				statement.execute("INSERT  INTO STOCKS (TICKER,DATE,ADJ_CLOSE) VALUES ('"+ Ticker+"', '"+time+"', '"+adjClose+"')");
+				try {
+					statement.execute("INSERT  INTO STOCKS (TICKER,DATE,ADJ_CLOSE) VALUES ('" + Ticker + "', '" + time + "', " + adjClose + ")");
+				} catch (SQLIntegrityConstraintViolationException e) {
+
+				}
 				System.out.println(ret);
 			}
 			return null;
