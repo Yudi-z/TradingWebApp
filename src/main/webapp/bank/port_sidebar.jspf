@@ -1,0 +1,58 @@
+<!-- PORT SIDEBAR BEGIN -->
+<%--
+  Created by IntelliJ IDEA.
+  User: Yudi
+  Date: 4/3/22
+  Time: 3:32 AM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="com.ibm.security.appscan.altoromutual.model.User"%><table cellspacing="0" width="100%">
+<% User user = (com.ibm.security.appscan.altoromutual.model.User)request.getSession().getAttribute("user"); %>
+<%
+response.setDateHeader ("Expires", 0);
+response.setHeader("Cache-Control","no-cache");
+response.setHeader("Pragma","no-cache");
+%>
+    <td valign="top" class="cc br bb">
+        <br style="line-height: 10px;"/>
+        <b> <%= user.getFirstName() + " " + user.getLastName() %> 's Portfolio </b>
+        <table cellspacing="0" width="100%">
+            <tr>
+                <th>Ticker Symbol</th>
+                <th>Shares Held</th>
+                <th>Price</th>
+            </tr>
+            <tr>
+                <td>FB</td>
+                <td>30</td>
+                <td>221.82</td>
+            </tr>
+
+        </table>
+
+        <b>Account Balance: </b>
+        <form>
+            <input type="radio" id="buy" name="BUYSELL" value="BUY">
+            <label for="buy">BUY</label>
+            <input type="radio" id="sell" name="BUYSELL" value="SELL">
+            <label for="sell">SELL</label><br>
+
+            <label for="orderType">Order Type:</label>
+            <select id="orderType" name="orderType">
+                <option value="market">Market</option>
+                <option value="limit">Limit</option>
+            </select><br>
+
+            <label for="share">Share</label>
+            <input type="number" id="share" name="share" value="100"><br>
+
+            <input type="submit" value="Review Order">
+        </form>
+
+        <table>
+
+        </table>
+    </td>
+
+<!-- PORT SIDEBAR END -->

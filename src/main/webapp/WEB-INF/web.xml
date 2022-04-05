@@ -149,6 +149,15 @@
   </servlet>
   <servlet>
     <description>
+    </description>
+    <display-name>
+      TradeServlet</display-name>
+    <servlet-name>TradeServlet</servlet-name>
+    <servlet-class>
+      com.ibm.security.appscan.altoromutual.servlet.TradeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>
 		</description>
     <display-name>
 		AdminLoginServlet</display-name>
@@ -220,6 +229,10 @@
   <servlet-mapping>
     <servlet-name>SignupServlet</servlet-name>
     <url-pattern>/signup/addUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TradeServlet</servlet-name>
+    <url-pattern>/bank/addStock</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdminLoginServlet</servlet-name>
