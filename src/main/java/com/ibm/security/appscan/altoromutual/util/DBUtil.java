@@ -476,6 +476,17 @@ public class DBUtil {
 			return e.toString();
 		}
 	}
+
+	public static String addNewAccount(String username, String acctType) {
+		try {
+			Connection connection = getConnection();
+			Statement statement = connection.createStatement();
+			statement.execute("INSERT INTO ACCOUNTS (USERID,ACCOUNT_NAME,BALANCE) VALUES ('"+username+"','"+acctType+"', 1000000)");
+			return null;
+		} catch (SQLException e){
+			return e.toString();
+		}
+	}
 	
 	public static String addSpecialUser(String username, String password, String firstname, String lastname) {
 		try {
