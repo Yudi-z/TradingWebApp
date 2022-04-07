@@ -37,11 +37,25 @@ public class yahooUtil {
         return null;
     }
 
+    public static double getStockPrice(String Ticker) {
+        try {
+            Stock stock = YahooFinance.get(Ticker);
+            double price = stock.getQuote().getPrice().doubleValue();
+            return price;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
     /**
      * Only for testing usage
      * @param args
      */
     public static void main(String[] args) {
+        double googlePirce = getStockPrice("GOOG");
+        System.out.println("google's price: " + googlePirce);
+        /*
         List<HistoricalQuote> stockHistQuotes = getStock("GOOG");
         for (int i=0;i<stockHistQuotes.size();i++) {
             Double adjClose = stockHistQuotes.get(i).getAdjClose().doubleValue();
@@ -49,6 +63,7 @@ public class yahooUtil {
             String ret = "Time: "+time + ", Stock: "+ "GOOG" + ", Adjusted close price: "+ adjClose;
             System.out.println(ret);
         }
+         */
 //        yahooUtil.getGOOG();
 //    System.out.println(google);
     }
