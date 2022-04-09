@@ -30,7 +30,7 @@ public class TradeServlet extends HttpServlet {
       int shares = Integer.parseInt(request.getParameter("share"));
       System.out.println("Get to TradeServlet tradeStock");
       System.out.println("action is " + action);
-      if(action.equals("BUY")) {
+      if(action.equals("BUY")) { //buy: negative shares
         shares = -shares;
       }
 

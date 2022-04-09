@@ -48,7 +48,7 @@ public class Portfolio {
   }
 
   public boolean notEnoughStock(Position newPosition) {
-    if(newPosition.getShares()<0) {
+    if(newPosition.getShares()>0) {
       if(contain(newPosition)) {
         int sharesOnHand = positions.get(newPosition.getTicker()).getShares();
         if(sharesOnHand < (-newPosition.getShares())){
