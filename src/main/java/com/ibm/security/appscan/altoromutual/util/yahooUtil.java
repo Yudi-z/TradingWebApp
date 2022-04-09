@@ -38,6 +38,9 @@ public class yahooUtil {
     }
 
     public static double getStockPrice(String Ticker) {
+        if(Ticker==null) {
+            return -1;
+        }
         try {
             Stock stock = YahooFinance.get(Ticker);
             double price = stock.getQuote().getPrice().doubleValue();
@@ -48,13 +51,29 @@ public class yahooUtil {
         return -1;
     }
 
+    public static Stock get(String Ticker) {
+        if(Ticker==null) {
+            return null;
+        }
+        try{
+            Stock stock = YahooFinance.get(Ticker);
+            return stock;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * Only for testing usage
      * @param args
      */
     public static void main(String[] args) {
-        double googlePirce = getStockPrice("GOOG");
-        System.out.println("google's price: " + googlePirce);
+        Stock google = get("GOOG");
+        System.out.println(google.getName());
+        google.print();
+//        double googlePirce = getStockPrice("GOOG");
+//        System.out.println("google's price: " + googlePirce);
         /*
         List<HistoricalQuote> stockHistQuotes = getStock("GOOG");
         for (int i=0;i<stockHistQuotes.size();i++) {

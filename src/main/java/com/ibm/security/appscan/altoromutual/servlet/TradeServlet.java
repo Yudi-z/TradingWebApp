@@ -20,6 +20,13 @@ public class TradeServlet extends HttpServlet {
         message = "An error has occured for ticker. Please try again.";
       }
       message += DBUtil.storeStock(ticker);
+    }else if (request.getRequestURL().toString().endsWith("tradeStock")){
+      String ticker = request.getParameter("buy_ticker");
+
+      if(ticker == null) {
+        message = "An error has occured for ticker. Please try again.";
+      }
+      message += DBUtil.storeStock(ticker);
     }
 
     if (message != null)

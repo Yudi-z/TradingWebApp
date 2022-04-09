@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page import="com.ibm.security.appscan.altoromutual.util.yahooUtil"%>
 <html>
 <head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -21,7 +22,8 @@
         <td valign="top" colspan="3" class="bb">
             <%@page import="com.ibm.security.appscan.altoromutual.model.Account"%>
             <%@page import="com.ibm.security.appscan.altoromutual.util.DBUtil"%>
-<%--                <jsp:include page="port_sidebar.jspf.jspf"/>--%>
+            <%@ page import="com.ibm.security.appscan.altoromutual.util.yahooUtil" %>
+            <%--                <jsp:include page="port_sidebar.jspf.jspf"/>--%>
 
         <%
         com.ibm.security.appscan.altoromutual.model.User user = (com.ibm.security.appscan.altoromutual.model.User)request.getSession().getAttribute("user");
@@ -56,7 +58,7 @@
             <!-- buy and sell tab -->
             <div class="w3-card w3-round w3-theme-l1">
                 <div class="w3-bar w3-black">
-                    <button class="w3-bar-item w3-button tablink " onclick="openTrade(event,'BUY')">BUY</button>
+                    <button class="w3-bar-item w3-button tablink w3-blue" onclick="openTrade(event,'BUY')">BUY</button>
                     <button class="w3-bar-item w3-button tablink" onclick="openTrade(event,'SELL')">SELL</button>
                 </div>
             </div>
@@ -64,12 +66,16 @@
             <div id="BUY" class="w3-container w3-border w3-white trade">
                 <h2>BUY</h2>
                 <div class="w3-container w3-padding">
-                    <form method="post" name="stockForm" action="addStock" id="stockForm" width="80%">
-                        Enter Ticker Symbol: <input type="text" name="ticker">
+                    <form method="post" name="stockForm" id="stockForm" width="80%">
+                        Enter Ticker Symbol: <input type="text" name="buy_ticker" id="buy_ticker">
                         <input type="submit" class="w3-button w3-theme" name="addButton" value="Review">
                     </form>
+            <%
+               java.lang.String buyTicker1 = request.getParameter("buy_ticker");
 
-                    <p></p>
+            %>
+                    <p id="Text_stockPrice" >Stock Price for <%=buyTicker1%> is <%=yahooUtil.getStockPrice(buyTicker1)%></p>
+
 
                     <label for="orderType">Order Type:</label>
                     <select id="orderType" name="orderType">
@@ -78,37 +84,21 @@
                     </select>
                     <br> <br>
 
+                    <label for="lmtPrice">Limit Price</label>
+                    <input type="number" step="0.01" id="lmtPrice" name="lmPrice" value="0">
+                    <br> <br>
+
                     <label for="share">Share</label>
                     <input type="number" id="share" name="share" value="100">
                     <br> <br>
 
-                    <input type="submit" class="w3-button w3-theme" value="Execute Order">
+                    <input type="submit" class="w3-button w3-theme" value="Execute Order" action="tradeStock">
                 </div>
             </div>
 
             <div id="SELL" class="w3-container w3-border w3-white trade " style="display:none">
                 <h2>SELL</h2>
-                <div class="w3-container w3-padding">
-                    <form method="post" name="stockForm" action="addStock" id="stockForm" width="80%">
-                        Enter Ticker Symbol: <input type="text" name="ticker">
-                        <input type="submit" class="w3-button w3-theme" name="addButton" value="Review">
-                    </form>
 
-                    <p></p>
-
-                    <label for="orderType">Order Type:</label>
-                    <select id="orderType" name="orderType">
-                        <option value="market">Market</option>
-                        <option value="limit">Limit</option>
-                    </select>
-                    <br> <br>
-
-                    <label for="share">Share</label>
-                    <input type="number" id="share" name="share" value="100">
-                    <br> <br>
-
-                    <input type="submit" class="w3-button w3-theme" value="Execute Order">
-                </div>
             </div>
             <!-- End Left Column -->
 <%--        </div>--%>

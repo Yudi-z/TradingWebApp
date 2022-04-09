@@ -17,7 +17,7 @@ public class OperationsUtil {
 
 	public static String doApiTransfer(HttpServletRequest request, long creditActId, long debitActId,
 			double amount) {
-		
+
 		try {
 			User user = OperationsUtil.getUser(request);
 			String userName = user.getUsername();
@@ -33,6 +33,24 @@ public class OperationsUtil {
 		} catch (SQLException e) {
 			return "ERROR - failed to transfer funds: " + e.getLocalizedMessage();
 		}
+	}
+
+	public static String doTradeStock(HttpServletRequest request, String ticker, String orderType, double limit, int shares) {
+		try {
+			User user = OperationsUtil.getUser(request);
+			String userName = user.getUsername();
+			long cashId = getCashAccountId(request);
+//			String message = DBUtil.tradeStock(userName,)
+		} catch (Exception e) {
+
+		}
+
+
+		return null;
+	}
+
+	public static long getCashAccountId(HttpServletRequest request) {
+		return 0;
 	}
 	
 	
