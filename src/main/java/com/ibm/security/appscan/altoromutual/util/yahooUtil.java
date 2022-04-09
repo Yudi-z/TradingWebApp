@@ -8,12 +8,13 @@ import yahoofinance.histquotes.Interval;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class yahooUtil {
 
-    public static void getGOOG(){
+    public static void getGOOG() {
         try {
             Stock google = YahooFinance.get("GOOG");
             System.out.println(google.getQuote());
@@ -22,23 +23,33 @@ public class yahooUtil {
         }
     }
 
-    public static List<HistoricalQuote> getStock(String Ticker){
+    public static List<HistoricalQuote> getStock(String Ticker) {
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
         from.add(Calendar.YEAR, -5); // from 5 years ago
 
+        return getStock(Ticker, from, to);
+    }
+
+    /**
+     * @param Ticker Stock ticker on Yahoo Finance
+     * @param from   inclusive start date
+     * @param to     inclusive end date
+     * @return HistoricalQuote from yahoo
+     */
+    public static List<HistoricalQuote> getStock(String Ticker, Calendar from, Calendar to) {
+        List<HistoricalQuote> stockHistQuotes = null;
         try {
             Stock stock = YahooFinance.get(Ticker);
-            List<HistoricalQuote> stockHistQuotes = stock.getHistory(from, to, Interval.DAILY);
-            return stockHistQuotes;
-        } catch (IOException e) {
+            stockHistQuotes = stock.getHistory(from, to, Interval.DAILY);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return stockHistQuotes;
     }
 
     public static double getStockPrice(String Ticker) {
-        if(Ticker==null) {
+        if (Ticker == null) {
             return -1;
         }
         try {
@@ -52,10 +63,10 @@ public class yahooUtil {
     }
 
     public static Stock get(String Ticker) {
-        if(Ticker==null) {
+        if (Ticker == null) {
             return null;
         }
-        try{
+        try {
             Stock stock = YahooFinance.get(Ticker);
             return stock;
         } catch (IOException e) {
@@ -64,8 +75,13 @@ public class yahooUtil {
         return null;
     }
 
+
+
+
+
     /**
      * Only for testing usage
+     *
      * @param args
      */
     public static void main(String[] args) {
