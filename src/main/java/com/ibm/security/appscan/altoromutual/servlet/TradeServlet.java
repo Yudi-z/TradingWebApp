@@ -23,7 +23,8 @@ public class TradeServlet extends HttpServlet {
       message += DBUtil.storeStock(ticker);
     }else if (request.getRequestURL().toString().endsWith("tradeStock")){
       String action = request.getParameter("action");
-      String ticker = request.getParameter("buy_ticker");
+      String ticker = request.getParameter("ticker");
+      System.out.println("Input Ticker is " +ticker);
       String orderType = request.getParameter("orderType");
       String limit = request.getParameter("lmtPrice");
       int shares = Integer.parseInt(request.getParameter("share"));

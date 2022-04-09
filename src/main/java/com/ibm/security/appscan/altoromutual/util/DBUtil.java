@@ -617,12 +617,12 @@ public class DBUtil {
 			}
 			statement.execute("UPDATE ACCOUNTS SET BALANCE = " + (balance+tradeSpent) + " WHERE ACCOUNT_ID = " + cashId);
 			if(tradeSpent<0) {
-				statement.execute("INSERT INTO TRANSACTIONS (ACCOUNTID, DATE, TYPE, AMOUNT) VALUES ("+cashId+",'"+date+"','Buy Stock',"+tradeSpent+")" );
+				statement.execute("INSERT INTO TRANSACTIONS (ACCOUNTID, DATE, TYPE, AMOUNT) VALUES ("+cashId+",'"+date+"','Buy "+ticker +"',"+tradeSpent+")" );
 				System.out.println("DBUtil Transaction query completed");
 				statement.execute("INSERT INTO STOCKTRANSACTIONS (ACCOUNTID, DATE, TICKER, NAME, SHARES, ACTION,TYPE, PRICE) VALUES ("+cashId+",'"+date+"','"+ticker+"','"+stockName+"',"+(-shares)+",'BUY','"+orderType+"',"+currentPrice+")" );
 //				statement.execute("INSERT INTO PORTFOLIOS (ACCOUNT_ID,TICKER,SHARES) VALUES ("+cashId+",'"+ticker+"',"+shares+")");
 			}else {
-				statement.execute("INSERT INTO TRANSACTIONS (ACCOUNTID, DATE, TYPE, AMOUNT) VALUES ("+cashId+",'"+date+"','Sell Stock',"+tradeSpent+")" );
+				statement.execute("INSERT INTO TRANSACTIONS (ACCOUNTID, DATE, TYPE, AMOUNT) VALUES ("+cashId+",'"+date+"','Sell "+ticker+"',"+tradeSpent+")" );
 				statement.execute("INSERT INTO STOCKTRANSACTIONS (ACCOUNTID, DATE, TICKER, NAME, SHARES, ACTION,TYPE, PRICE) VALUES ("+cashId+",'"+date+"','"+ticker+"','"+stockName+"',"+shares+",'SELL','"+orderType+"',"+currentPrice+")" );
 			}
 
@@ -633,6 +633,7 @@ public class DBUtil {
 				addNewPosition(p,username);
 			}
 
+			storeStock(ticker);
 
 			return null;
 		} catch (SQLException e){
