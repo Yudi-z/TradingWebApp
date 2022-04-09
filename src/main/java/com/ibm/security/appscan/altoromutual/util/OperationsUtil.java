@@ -37,20 +37,32 @@ public class OperationsUtil {
 
 	public static String doTradeStock(HttpServletRequest request, String ticker, String orderType, double limit, int shares) {
 		try {
-			User user = OperationsUtil.getUser(request);
+			User user = ServletUtil.getUser(request);
 			String userName = user.getUsername();
-			long cashId = getCashAccountId(request);
-//			String message = DBUtil.tradeStock(userName,)
+			System.out.println("OperationUtil getUser "+ userName);
+			long cashId = getCashAccountId(user);
+			System.out.println("OperationUtil getCashAccount "+ cashId);
+			String message = DBUtil.tradeStock(userName, cashId, ticker, orderType, shares);
+			if (message!=null) {
+				message = "ERROR: " + message;
+			} else {
+				message = "Stock trade successfully completed: ";
+			}
+			return message;
 		} catch (Exception e) {
-
+				return "ERROR: failed stock trade: " + e.getLocalizedMessage();
 		}
 
-
-		return null;
 	}
 
-	public static long getCashAccountId(HttpServletRequest request) {
-		return 0;
+	public static long getCashAccountId(User user) {
+		Account[] accountList= user.getAccounts();
+		for(Account a:accountList) {
+			if(a.getAccountName().equals("Cash")) {
+				return a.getAccountId();
+			}
+		}
+		return -1;
 	}
 	
 	

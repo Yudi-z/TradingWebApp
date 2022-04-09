@@ -1,20 +1,35 @@
 package com.ibm.security.appscan.altoromutual.model;
 
+import com.ibm.security.appscan.altoromutual.util.DBUtil;
+
 import java.util.HashMap;
 import java.util.List;
 
 public class Portfolio {
+  private String username;
   private double cash_balance;
-  private HashMap<String, Position> positions = new HashMap<>();
+  private HashMap<String, Position> positions = null;
 
-  public void buy(Position position) {
-    if(positions.containsKey(position.getTicker())) {
-
-    }
-
+  public Portfolio(String username, HashMap<String,Position> positions) {
+    this.username=username;
+    this.positions = positions;
   }
 
-  public void sell() {
+  public boolean contain(Position newPosition) {
+    String ticker = newPosition.getTicker();
+    if(positions.containsKey(ticker)) {
+      return true;
+    }
+    return false;
+  }
+
+  public void add(Position newPosition) {
+    String ticker = newPosition.getTicker();
+    if(contain(newPosition)) {
+      positions.get(ticker).setAvgCost(newPosition.getPrice(), newPosition.getShares());
+    } else {
+      positions.put(ticker, newPosition);
+    }
 
   }
 
@@ -38,7 +53,11 @@ public class Portfolio {
     return getTotalCurrentValue() - getTotalCost();
   }
 
-  public List<Position> getPositions() {
+  public HashMap<String,Position> getPositions() {
+    return this.positions;
+  }
+
+  public List<Position> getPositionList() {
     List<Position> positionList = null;
     for(Position p: positions.values()){
       positionList.add(p);

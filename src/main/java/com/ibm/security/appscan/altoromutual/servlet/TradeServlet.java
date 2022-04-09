@@ -1,5 +1,6 @@
 package com.ibm.security.appscan.altoromutual.servlet;
 import com.ibm.security.appscan.altoromutual.util.DBUtil;
+import com.ibm.security.appscan.altoromutual.util.OperationsUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,12 +22,22 @@ public class TradeServlet extends HttpServlet {
       }
       message += DBUtil.storeStock(ticker);
     }else if (request.getRequestURL().toString().endsWith("tradeStock")){
+      String action = request.getParameter("action");
       String ticker = request.getParameter("buy_ticker");
+      String orderType = request.getParameter("orderType");
+      String limit = request.getParameter("lmtPrice");
+      int shares = Integer.parseInt(request.getParameter("share"));
+      System.out.println("Get to TradeServlet tradeStock");
+      System.out.println("action is " + action);
+      if(action.equals("BUY")) {
+        shares = -shares;
+      }
 
       if(ticker == null) {
+        System.out.println("Ticker is null");
         message = "An error has occured for ticker. Please try again.";
       }
-      message += DBUtil.storeStock(ticker);
+      message += OperationsUtil.doTradeStock(request,ticker,orderType,0.0,shares);
     }
 
     if (message != null)

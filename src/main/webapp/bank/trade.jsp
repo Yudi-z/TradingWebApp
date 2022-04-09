@@ -64,35 +64,37 @@
             </div>
 
             <div id="BUY" class="w3-container w3-border w3-white trade">
-                <h2>BUY</h2>
+                <h2 >BUY</h2>
                 <div class="w3-container w3-padding">
                     <form method="post" name="stockForm" id="stockForm" width="80%">
                         Enter Ticker Symbol: <input type="text" name="buy_ticker" id="buy_ticker">
+                        <input name="action" type = "hidden" id = "action" value = "BUY">
                         <input type="submit" class="w3-button w3-theme" name="addButton" value="Review">
+                        <%
+                            java.lang.String buyTicker1 = request.getParameter("buy_ticker");
+
+                        %>
+                        <p id="Text_stockPrice" >Stock Price for <%=buyTicker1%> is <%=yahooUtil.getStockPrice(buyTicker1)%></p>
+
+
+                        <label for="orderType">Order Type:</label>
+                        <select id="orderType" name="orderType">
+                            <option value="market">Market</option>
+                            <option value="limit">Limit</option>
+                        </select>
+                        <br> <br>
+
+                        <label for="lmtPrice">Limit Price</label>
+                        <input type="number" step="0.01" id="lmtPrice" name="lmPrice" value="0">
+                        <br> <br>
+
+                        <label for="share">Share</label>
+                        <input type="number" id="share" name="share" value="100">
+                        <br> <br>
+
+                        <input type="submit" class="w3-button w3-theme" value="Execute Order" formaction="tradeStock">
                     </form>
-            <%
-               java.lang.String buyTicker1 = request.getParameter("buy_ticker");
 
-            %>
-                    <p id="Text_stockPrice" >Stock Price for <%=buyTicker1%> is <%=yahooUtil.getStockPrice(buyTicker1)%></p>
-
-
-                    <label for="orderType">Order Type:</label>
-                    <select id="orderType" name="orderType">
-                        <option value="market">Market</option>
-                        <option value="limit">Limit</option>
-                    </select>
-                    <br> <br>
-
-                    <label for="lmtPrice">Limit Price</label>
-                    <input type="number" step="0.01" id="lmtPrice" name="lmPrice" value="0">
-                    <br> <br>
-
-                    <label for="share">Share</label>
-                    <input type="number" id="share" name="share" value="100">
-                    <br> <br>
-
-                    <input type="submit" class="w3-button w3-theme" value="Execute Order" action="tradeStock">
                 </div>
             </div>
 
