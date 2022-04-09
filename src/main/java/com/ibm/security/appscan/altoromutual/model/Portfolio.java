@@ -25,12 +25,40 @@ public class Portfolio {
 
   public void add(Position newPosition) {
     String ticker = newPosition.getTicker();
-    if(contain(newPosition)) {
+    if (contain(newPosition)) {
       positions.get(ticker).setAvgCost(newPosition.getPrice(), newPosition.getShares());
     } else {
       positions.put(ticker, newPosition);
     }
+    // sell: have already validated that there are enough stock to sell
+    if(newPosition.getShares()<0) {
+      if(positions.get(ticker).getShares()==0) {
+        // remove from the list?
+      }
+    }
 
+    print();
+  }
+
+  public void print() {
+    for(String ticker: positions.keySet()) {
+      int shares = positions.get(ticker).getShares();
+      System.out.println(username + " " + ticker + " " + shares);
+    }
+  }
+
+  public boolean notEnoughStock(Position newPosition) {
+    if(newPosition.getShares()<0) {
+      if(contain(newPosition)) {
+        int sharesOnHand = positions.get(newPosition.getTicker()).getShares();
+        if(sharesOnHand < (-newPosition.getShares())){
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+    return false;
   }
 
   public double getTotalCurrentValue() {

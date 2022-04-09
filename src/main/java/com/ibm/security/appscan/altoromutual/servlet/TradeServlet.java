@@ -37,8 +37,8 @@ public class TradeServlet extends HttpServlet {
       if(ticker == null) {
         System.out.println("Ticker is null");
         message = "An error has occured for ticker. Please try again.";
-      }
-      message += OperationsUtil.doTradeStock(request,ticker,orderType,0.0,shares);
+      }else
+        message = OperationsUtil.doTradeStock(request,ticker,orderType,0.0,shares);
     }
 
     if (message != null)
@@ -46,7 +46,7 @@ public class TradeServlet extends HttpServlet {
     else
      message = "Requested operation has completed successfully.";
 
-    RequestDispatcher dispatcher = request.getRequestDispatcher("transfer.jsp");
+    RequestDispatcher dispatcher = request.getRequestDispatcher("trade.jsp");
     request.setAttribute("message", message);
     dispatcher.forward(request, response);
     response.sendRedirect(request.getContextPath()+"/trade.jsp");

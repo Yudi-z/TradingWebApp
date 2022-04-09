@@ -46,7 +46,7 @@ public class OperationsUtil {
 			if (message!=null) {
 				message = "ERROR: " + message;
 			} else {
-				message = "Stock trade successfully completed: ";
+				return null;
 			}
 			return message;
 		} catch (Exception e) {

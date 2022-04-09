@@ -94,6 +94,7 @@
 
                         <input type="submit" class="w3-button w3-theme" value="Execute Order" formaction="tradeStock">
                     </form>
+                    <p><%=(request.getAttribute("message")==null)?"":request.getAttribute("message") %></p>
 
                 </div>
             </div>
@@ -129,6 +130,7 @@
 
                         <input type="submit" class="w3-button w3-theme" value="Execute Order" formaction="tradeStock">
                     </form>
+                    <p><%=(request.getAttribute("message")==null)?"":request.getAttribute("message") %></p>
 
                 </div>
             </div>

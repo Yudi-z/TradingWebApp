@@ -615,6 +615,9 @@ public class DBUtil {
 			if(tradeSpent + balance < 0) {
 				return "Insufficient amount in the account.";
 			}
+			if(port.notEnoughStock(p)) {
+				return "Not enough "+ ticker + " to sell.";
+			}
 			statement.execute("UPDATE ACCOUNTS SET BALANCE = " + (balance+tradeSpent) + " WHERE ACCOUNT_ID = " + cashId);
 			if(tradeSpent<0) {
 				statement.execute("INSERT INTO TRANSACTIONS (ACCOUNTID, DATE, TYPE, AMOUNT) VALUES ("+cashId+",'"+date+"','Buy "+ticker +"',"+tradeSpent+")" );
