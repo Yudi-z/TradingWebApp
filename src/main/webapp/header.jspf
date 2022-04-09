@@ -37,7 +37,7 @@ IBM AltoroJ
   <form id="frmSearch" method="get" action="<%=request.getContextPath()%>/search.jsp">
 	  <table width="100%" border="0" cellpadding="0" cellspacing="0">
 		  <tr>
-		      <td rowspan="2"><a id="HyperLink1" href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/images/logo.gif" width=283 height=80/></a></td>
+		      <td rowspan="2"><a id="HyperLink1" href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/images/logo.png" width=283 height=80/></a></td>
 			  <td align="right" valign="top">
   			  <a id="LoginLink" href="<%=(!loggedIn)?request.getContextPath()+"/login.jsp":request.getContextPath()+"/logout.jsp"%>"><font style="font-weight: bold; color: red;"><%=(!loggedIn)?"Sign In":"Sign Off"%></font></a> | <a id="SignUpLink" href="<%=request.getContextPath()%>/signup.jsp">Sign Up</a> | <a id="HyperLink3" href="<%=request.getContextPath()%>/index.jsp?content=inside_contact.htm">Contact Us</a> | <a id="HyperLink4" href="<%=request.getContextPath()%>/feedback.jsp">Feedback</a> | <label for="txtSearch">Search</label>
           <input type="text" name="query" id="query" accesskey="S" />
