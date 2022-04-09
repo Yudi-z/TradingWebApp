@@ -4,6 +4,7 @@ import com.ibm.security.appscan.altoromutual.util.DBUtil;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Portfolio {
   private String username;
@@ -62,17 +63,17 @@ public class Portfolio {
   }
 
   public double getTotalCurrentValue() {
-    double sum=0;
-    for(int i=0; i< positions.size();i++) {
-      sum += positions.get(i).getCurrentValue();
+    double sum = 0;
+    for(Map.Entry<String, Position> pos: positions.entrySet()){
+      sum += pos.getValue().getCurrentValue();
     }
-    return sum+cash_balance;
+    return sum + cash_balance;
   }
 
   public double getTotalCost() {
-    double sum=0;
-    for(int i=0; i< positions.size();i++) {
-      sum += positions.get(i).getCost();
+    double sum = 0;
+    for(Map.Entry<String, Position> pos: positions.entrySet()){
+      sum += pos.getValue().getCost();
     }
     return sum;
   }
