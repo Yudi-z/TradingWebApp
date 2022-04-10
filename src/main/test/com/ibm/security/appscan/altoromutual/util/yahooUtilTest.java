@@ -36,4 +36,35 @@ class yahooUtilTest {
             i++;
         }
     }
+
+    @Test
+    void getGOOG() {
+    }
+
+    @Test
+    void getStockPrice() {
+    }
+
+    @Test
+    void get() {
+    }
+
+    @Test
+    void main() {
+    }
+
+    @Test
+    void mean() {
+    }
+
+    @Test
+    void getRf() {
+        Calendar from = Calendar.getInstance();
+        from.set(2022, Calendar.JANUARY, 1);
+        System.out.println(yahooUtil.getRf(from));
+    }
+
+    @Test
+    void testGetRf() {
+    }
 }

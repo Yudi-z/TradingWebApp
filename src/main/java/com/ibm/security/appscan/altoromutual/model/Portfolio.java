@@ -41,7 +41,6 @@ public class Portfolio {
                 // remove from the list?
             }
         }
-
         print();
     }
 
@@ -91,7 +90,7 @@ public class Portfolio {
     }
 
     public List<Position> getPositionList() {
-        List<Position> positionList = null;
+        List<Position> positionList = new ArrayList<>();
         for (Position p : positions.values()) {
             positionList.add(p);
         }
@@ -102,6 +101,10 @@ public class Portfolio {
         return new ArrayList<>(map.values());
     }
 
+    /**
+     * A map of <b>Ticker</b> to <b>Weight</b> of each position in the portfolio
+     * @return a Map
+     */
     public Map<String, Double> getWeight() {
         Map<String, Double> weights = new HashMap<>();
         for (Map.Entry<String, Position> pos : positions.entrySet()) {
@@ -116,10 +119,12 @@ public class Portfolio {
         Calendar start = pos1.getStart().after(pos2.getStart()) ? pos1.getStart() : pos2.getStart();
         List<Double> X = pos1.getDailyYield(start, Calendar.getInstance());
         List<Double> Y = pos2.getDailyYield(start, Calendar.getInstance());
+//        System.out.println(X);
         assert (X.size() == Y.size());
         List<Double> temp = new ArrayList<>();
         double Ex = mean(X);
         double Ey = mean(Y);
+//        System.out.println("Ex = " + Ex + " EY = " + Ey);
         for (int i = 0; i < X.size(); i++) {
             temp.add((X.get(i) - Ex) * (Y.get(i) - Ey));
         }
@@ -149,7 +154,7 @@ public class Portfolio {
                 step_2 += w1.getValue() * w2.getValue() * getCov(positions.get(w1.getKey()), positions.get((w2.getKey())));
             }
         }
-        return Math.sqrt(step_1 + step_2);
+        return Math.sqrt(step_1 + 2 * step_2);
 
     }
 
@@ -162,7 +167,7 @@ public class Portfolio {
         return s;
     }
 
-    private Calendar getEarliestDate() {
+    public Calendar getEarliestDate() {
         Calendar startDate = Calendar.getInstance();
         for (Position pos : positions.values()) {
             if (pos.getStart().before(startDate)) {

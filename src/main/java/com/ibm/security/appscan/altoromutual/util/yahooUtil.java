@@ -76,9 +76,6 @@ public class yahooUtil {
     }
 
 
-
-
-
     /**
      * Only for testing usage
      *
@@ -111,17 +108,23 @@ public class yahooUtil {
         return total / table.size();
     }
 
-    public static double getRf(Calendar start, Calendar end){
+    public static double getRf(Calendar start, Calendar end) {
         List<HistoricalQuote> rf_quote_list = getStock("^TNX", start, end);
         List<Double> rf_list = new ArrayList<>();
-        for (HistoricalQuote rf_quote:rf_quote_list) {
-            rf_list.add(rf_quote.getAdjClose().doubleValue());
+        BigDecimal temp = new BigDecimal(0);
+        for (HistoricalQuote rf_quote : rf_quote_list) {
+            if (rf_quote.getAdjClose() == null) {
+                rf_list.add(temp.doubleValue());
+            }else {
+                rf_list.add(rf_quote.getAdjClose().doubleValue());
+                temp = rf_quote.getAdjClose();
+            }
         }
-        double Rf = mean(rf_list);
+        double Rf = mean(rf_list)/100;
         return Rf;
     }
 
-    public static double getRf(Calendar start){
+    public static double getRf(Calendar start) {
         return getRf(start, Calendar.getInstance());
     }
 }

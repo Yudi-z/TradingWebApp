@@ -93,7 +93,7 @@ public class Position {
         for (double currentNum : table) {
             total += currentNum;
         }
-        return total / table.size();
+        return total / (double)table.size();
     }
 
     /**
