@@ -102,4 +102,27 @@ public class yahooUtil {
 //        yahooUtil.getGOOG();
 //    System.out.println(google);
     }
+
+    public static double mean(List<Double> table) {
+        double total = 0;
+        for (double currentNum : table) {
+            total += currentNum;
+        }
+        return total / table.size();
+    }
+
+    public static double getRf(Calendar start, Calendar end){
+
+        List<HistoricalQuote> rf_quote_list = getStock("^TNX", start, end);
+        List<Double> rf_list = new ArrayList<>();
+        for (HistoricalQuote rf_quote:rf_quote_list) {
+            rf_list.add(rf_quote.getAdjClose().doubleValue());
+        }
+        double Rf = mean(rf_list);
+        return Rf;
+    }
+
+    public static double getRf(Calendar start){
+        return getRf(start, Calendar.getInstance());
+    }
 }

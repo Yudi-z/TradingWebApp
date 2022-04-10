@@ -1,16 +1,18 @@
 package com.ibm.security.appscan.altoromutual.model;
 
 import com.ibm.security.appscan.altoromutual.util.DBUtil;
+import com.ibm.security.appscan.altoromutual.util.yahooUtil;
+import yahoofinance.histquotes.HistoricalQuote;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static com.ibm.security.appscan.altoromutual.util.yahooUtil.getStock;
 
 public class Portfolio {
     private String username;
     private double cash_balance;
     private HashMap<String, Position> positions = null;
+
 
     public Portfolio(String username, HashMap<String, Position> positions) {
         this.username = username;
@@ -107,8 +109,10 @@ public class Portfolio {
         return weights;
     }
 
+    //TODO: implement getCov
     public double getCov(Position pos1, Position pos2) {
 
+        return 0;
     }
 
     public Map<String, Double> getAssetVol(){
@@ -135,6 +139,24 @@ public class Portfolio {
         }
         return Math.sqrt(step_1 + step_2);
 
+    }
+    public double getROR(){
+        return getUnrealizedProfit()/getTotalCost();
+    }
+
+    public double sharpe(){
+        double s = (getROR() - yahooUtil.getRf(getEarliestDate())) / getPortfolioVol();
+        return s;
+    }
+
+    private Calendar getEarliestDate(){
+        Calendar startDate = Calendar.getInstance();
+        for (Position pos: positions.values()) {
+            if(pos.getStart().before(startDate)){
+                startDate=pos.getStart();
+            }
+        }
+        return startDate;
     }
 
 

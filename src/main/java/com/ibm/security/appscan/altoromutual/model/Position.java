@@ -8,22 +8,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.ibm.security.appscan.altoromutual.util.yahooUtil.getStock;
+
 public class Position {
     private String ticker = null;
     private int num_share = 0;
     private double avg_cost_per_share = 0;
-    private Date start;
+    private Calendar start;
     private static final int ANNUAL_TRADE_DATE = 252;
 
     public Position(String ticker, int num_share, double price) {
         this.ticker = ticker;
         this.num_share = num_share;
         this.avg_cost_per_share = price;
-        start = new Date();
-        start = Calendar.getInstance().getTime();
+        start = Calendar.getInstance();
     }
 
-    public Position(String ticker, int num_share, double price, Date start) {
+    public Position(String ticker, int num_share, double price, Calendar start) {
         this.ticker = ticker;
         this.num_share = num_share;
         this.avg_cost_per_share = price;
@@ -78,15 +79,12 @@ public class Position {
     /**
      * Get daily yield in the interval with the ticker for this position
      *
-     * @param start start date of calculation, determined by the portfolio start date
-     * @param end   end date of calculation
+     * @param from start date of calculation, determined by the portfolio start date
+     * @param to   end date of calculation
      * @return daily yield in a list
      */
-    public List<Double> getDailyYield(Date start, Date end) {
-        Calendar from = Calendar.getInstance();
-        from.setTime(start);
-        Calendar to = Calendar.getInstance();
-        to.setTime(end);
+    public List<Double> getDailyYield(Calendar from, Calendar to) {
+
         return getDailyYieldFromQuoteList(yahooUtil.getStock(this.ticker, from, to));
     }
 
@@ -122,7 +120,13 @@ public class Position {
      * @return annualized volatility of this position
      */
     public double getVolatility() {
-        List<Double> dailyYield = getDailyYield(start, Calendar.getInstance().getTime());
+        List<Double> dailyYield = getDailyYield(start, Calendar.getInstance());
         return Math.sqrt(ANNUAL_TRADE_DATE) * getStdev(dailyYield);
     }
+
+    public Calendar getStart(){
+        return start;
+    }
+
+
 }
