@@ -7,6 +7,7 @@ import yahoofinance.histquotes.HistoricalQuote;
 import java.util.*;
 
 import static com.ibm.security.appscan.altoromutual.util.yahooUtil.getStock;
+import static com.ibm.security.appscan.altoromutual.util.yahooUtil.mean;
 
 public class Portfolio {
     private String username;
@@ -109,13 +110,24 @@ public class Portfolio {
         return weights;
     }
 
-    //TODO: implement getCov
-    public double getCov(Position pos1, Position pos2) {
 
-        return 0;
+    public double getCov(Position pos1, Position pos2) {
+        // use the later start date of the positions
+        Calendar start = pos1.getStart().after(pos2.getStart()) ? pos1.getStart() : pos2.getStart();
+        List<Double> X = pos1.getDailyYield(start, Calendar.getInstance());
+        List<Double> Y = pos2.getDailyYield(start, Calendar.getInstance());
+        assert (X.size() == Y.size());
+        List<Double> temp = new ArrayList<>();
+        double Ex = mean(X);
+        double Ey = mean(Y);
+        for (int i = 0; i < X.size(); i++) {
+            temp.add((X.get(i) - Ex) * (Y.get(i) - Ey));
+        }
+        return mean(temp);
     }
 
-    public Map<String, Double> getAssetVol(){
+
+    public Map<String, Double> getAssetVol() {
         Map<String, Double> assetVol = new HashMap<>();
         for (Map.Entry<String, Position> pos : positions.entrySet()) {
             assetVol.put(pos.getKey(), pos.getValue().getVolatility());
@@ -140,20 +152,21 @@ public class Portfolio {
         return Math.sqrt(step_1 + step_2);
 
     }
-    public double getROR(){
-        return getUnrealizedProfit()/getTotalCost();
+
+    public double getROR() {
+        return getUnrealizedProfit() / getTotalCost();
     }
 
-    public double sharpe(){
+    public double sharpe() {
         double s = (getROR() - yahooUtil.getRf(getEarliestDate())) / getPortfolioVol();
         return s;
     }
 
-    private Calendar getEarliestDate(){
+    private Calendar getEarliestDate() {
         Calendar startDate = Calendar.getInstance();
-        for (Position pos: positions.values()) {
-            if(pos.getStart().before(startDate)){
-                startDate=pos.getStart();
+        for (Position pos : positions.values()) {
+            if (pos.getStart().before(startDate)) {
+                startDate = pos.getStart();
             }
         }
         return startDate;

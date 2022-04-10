@@ -112,7 +112,6 @@ public class yahooUtil {
     }
 
     public static double getRf(Calendar start, Calendar end){
-
         List<HistoricalQuote> rf_quote_list = getStock("^TNX", start, end);
         List<Double> rf_list = new ArrayList<>();
         for (HistoricalQuote rf_quote:rf_quote_list) {
