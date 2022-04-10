@@ -75,6 +75,18 @@ public class yahooUtil {
         return null;
     }
 
+    public static String getName(String Ticker) {
+        if(Ticker==null) {
+            return null;
+        }
+        try{
+            Stock stock = YahooFinance.get(Ticker);
+            return stock.getName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     /**
      * Only for testing usage

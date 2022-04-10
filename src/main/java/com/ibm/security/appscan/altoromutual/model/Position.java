@@ -12,6 +12,7 @@ import static com.ibm.security.appscan.altoromutual.util.yahooUtil.getStock;
 
 public class Position {
     private String ticker = null;
+    private String name = null;
     private int num_share = 0;
     private double avg_cost_per_share = 0;
     private Calendar start;
@@ -19,6 +20,7 @@ public class Position {
 
     public Position(String ticker, int num_share, double price) {
         this.ticker = ticker;
+        this.name = yahooUtil.getName(ticker);
         this.num_share = num_share;
         this.avg_cost_per_share = price;
         start = Calendar.getInstance();
@@ -26,6 +28,7 @@ public class Position {
 
     public Position(String ticker, int num_share, double price, Calendar start) {
         this.ticker = ticker;
+        this.name = yahooUtil.getName(ticker);
         this.num_share = num_share;
         this.avg_cost_per_share = price;
         this.start = start;
@@ -57,6 +60,8 @@ public class Position {
     public String getTicker() {
         return ticker;
     }
+
+    public String getName() {return name;}
 
     /**
      * Helper method for getDailyYield()
@@ -129,4 +134,5 @@ public class Position {
     }
 
 
+>>>>>>> src/main/java/com/ibm/security/appscan/altoromutual/model/Position.java
 }
