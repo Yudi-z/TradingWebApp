@@ -65,11 +65,6 @@
 
                         <% } %>
 
-                        <tr>
-                            <td>FB</td>
-                            <td>30</td>
-                            <td>221.82</td>
-                        </tr>
 
                     </table>
                 </div>
