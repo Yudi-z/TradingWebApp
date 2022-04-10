@@ -42,7 +42,7 @@ public class SignupServlet extends HttpServlet {
 
       if (message == null){
         String error = DBUtil.addUser(username, password1, firstname, lastname);
-        error+= DBUtil.addNewAccount(username, "Checking");
+        error+= DBUtil.addNewAccount(username, "Cash");
         if (error != null)
           message = error;
       }
