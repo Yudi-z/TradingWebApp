@@ -9,6 +9,7 @@ public class Portfolio {
   private String username;
   private double cash_balance;
   private HashMap<String, Position> positions = null;
+  boolean init = false;
 
   public Portfolio(String username, HashMap<String,Position> positions) {
     this.username=username;
@@ -41,9 +42,10 @@ public class Portfolio {
   }
 
   public void print() {
+    int i = 0;
     for(String ticker: positions.keySet()) {
       int shares = positions.get(ticker).getShares();
-      System.out.println(username + " " + ticker + " " + shares);
+      System.out.println((i++) +username + " " + ticker + " " + shares);
     }
   }
 
@@ -92,5 +94,7 @@ public class Portfolio {
     }
     return positionList;
   }
+
+
 
 }

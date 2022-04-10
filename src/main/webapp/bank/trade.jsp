@@ -23,6 +23,8 @@
             <%@page import="com.ibm.security.appscan.altoromutual.model.Account"%>
             <%@page import="com.ibm.security.appscan.altoromutual.util.DBUtil"%>
             <%@ page import="com.ibm.security.appscan.altoromutual.util.yahooUtil" %>
+            <%@ page import="com.ibm.security.appscan.altoromutual.model.Portfolio" %>
+            <%@ page import="com.ibm.security.appscan.altoromutual.model.Position" %>
             <%--                <jsp:include page="port_sidebar.jspf.jspf"/>--%>
 
         <%
@@ -42,9 +44,27 @@
                     <table cellspacing="0" width="80%">
                         <tr>
                             <th>Ticker Symbol</th>
+                            <th>Name</th>
                             <th>Shares Held</th>
                             <th>Price</th>
                         </tr>
+                        <%
+                            String username = user.getUsername();
+                            System.out.println("username: "+ username);
+                            Portfolio portfolio = DBUtil.getPortfolio(username);
+//                            System.out.println("portfolio:" + portfolio.getPositionList());
+                            for(Position p: portfolio.getPositions().values()) {
+                              System.out.println("portfolio: " + p.getTicker());
+                        %>
+                        <tr>
+                            <td><%=p.getTicker()%></td>
+                            <td><%=p.getName()%></td>
+                            <td><%=p.getShares()%></td>
+                            <td><%=p.getPrice()%></td>
+                        </tr>
+
+                        <% } %>
+
                         <tr>
                             <td>FB</td>
                             <td>30</td>

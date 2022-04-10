@@ -10,7 +10,7 @@ public class Position {
 
   public Position(String ticker, int num_share, double price) {
     this.ticker = ticker;
-//    this.name = name;
+    this.name = yahooUtil.getName(ticker);
     this.num_share = num_share;
     this.avg_cost_per_share = price;
   }
@@ -37,4 +37,6 @@ public class Position {
   public String getTicker() {
     return ticker;
   }
+
+  public String getName() {return name;}
 }

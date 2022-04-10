@@ -459,7 +459,7 @@ public class DBUtil {
 		while (resultSet.next()){
 			String name = resultSet.getString("ACCOUNT_NAME");
 			double balance = resultSet.getDouble("BALANCE");
-			System.out.println("DBUtill getAccount(): "+ name);
+			System.out.println("DBUtill getAccount(): "+ name + ", BALANCE: " + balance);
 			Account newAccount = new Account(accountNo, name, balance);
 			accounts.add(newAccount);
 		}
@@ -565,9 +565,9 @@ public class DBUtil {
 				try {
 					statement.execute("INSERT  INTO STOCKS (TICKER,DATE,ADJ_CLOSE) VALUES ('" + Ticker + "', '" + time + "', " + adjClose + ")");
 				} catch (SQLIntegrityConstraintViolationException e) {
-					System.err.println("Skipping repeated data entry: "+stockHistQuote.getSymbol()+" on "+ new Date(time.getTime()));
+//					System.err.println("Skipping repeated data entry: "+stockHistQuote.getSymbol()+" on "+ new Date(time.getTime()));
 				}
-				System.out.println(ret);
+//				System.out.println(ret);
 			}
 			return null;
 		} catch (SQLException e){
@@ -579,14 +579,14 @@ public class DBUtil {
 
 	public static String tradeStock(String username, long cashId, String ticker, String orderType, int shares) {
 
-		try {
-			Connection connection = getConnection();
-			Statement statement = connection.createStatement();
-			statement.execute("CREATE TABLE PORTFOLIOS (USERID VARCHAR(50) NOT NULL, TICKER VARCHAR(10) NOT NULL, SHARES INT NOT NULL, PRICE DOUBLE NOT NULL, PRIMARY KEY(TICKER))");
-			statement.execute("CREATE TABLE STOCKTRANSACTIONS (TRANSACTION_ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 4022, INCREMENT BY 1), ACCOUNTID BIGINT NOT NULL, DATE TIMESTAMP NOT NULL, TICKER VARCHAR(10) NOT NULL, NAME VARCHAR(50) NOT NULL, SHARES INT NOT NULL, ACTION VARCHAR(10) NOT NULL, TYPE VARCHAR(100) NOT NULL, PRICE DOUBLE NOT NULL, PRIMARY KEY (TRANSACTION_ID))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Connection connection = getConnection();
+//			Statement statement = connection.createStatement();
+//			statement.execute("CREATE TABLE PORTFOLIOS (USERID VARCHAR(50) NOT NULL, TICKER VARCHAR(10) NOT NULL, SHARES INT NOT NULL, PRICE DOUBLE NOT NULL, PRIMARY KEY(TICKER))");
+//			statement.execute("CREATE TABLE STOCKTRANSACTIONS (TRANSACTION_ID INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 4022, INCREMENT BY 1), ACCOUNTID BIGINT NOT NULL, DATE TIMESTAMP NOT NULL, TICKER VARCHAR(10) NOT NULL, NAME VARCHAR(50) NOT NULL, SHARES INT NOT NULL, ACTION VARCHAR(10) NOT NULL, TYPE VARCHAR(100) NOT NULL, PRICE DOUBLE NOT NULL, PRIMARY KEY (TRANSACTION_ID))");
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 		try {
 			System.out.println("DBUtil tradeStock");
 			User user = getUserInfo(username);
@@ -630,11 +630,27 @@ public class DBUtil {
 			}
 
 			port.add(p);
-			if(port.contain(p)) {
-				updatePortfolio(port,p);
-			}else {
-				addNewPosition(p,username);
+			try {
+				statement.execute("INSERT INTO PORTFOLIOS (USERID,TICKER,SHARES,PRICE) VALUES ('"+username+"','"+p.getTicker()+"', "+p.getShares()+", "+ p.getPrice()+")");
+			} catch (SQLIntegrityConstraintViolationException e) {
+				Position newPosition = port.getPositions().get(p.getTicker());
+				statement.execute("UPDATE PORTFOLIOS SET SHARES = "+newPosition.getShares()+", PRICE = "+ newPosition.getPrice() + "WHERE TICKER= '" + newPosition.getTicker()+"'");
+				System.err.println("update portfolio: " + ticker);
 			}
+
+			/*
+			if(port.contain(p)) {
+				Position newPosition = port.getPositions().get(p.getTicker());
+				statement.execute("UPDATE PORTFOLIOS SET SHARES = "+newPosition.getShares()+", PRICE = "+ newPosition.getPrice() + "WHERE TICKER= '" + newPosition.getTicker()+"'");
+//				updatePortfolio(port,p);
+				System.out.println("update portfolio with existing stock");
+			}else {
+				statement.execute("INSERT INTO PORTFOLIOS (USERID,TICKER,SHARES,PRICE) VALUES ('"+username+"','"+p.getTicker()+"', "+p.getShares()+", "+ p.getPrice()+")");
+//				addNewPosition(p,username);
+				System.out.println("update portfolio with new stock");
+			}
+
+			 */
 
 			storeStock(ticker);
 
@@ -651,7 +667,8 @@ public class DBUtil {
 			Connection connection = getConnection();
 			Statement statement = connection.createStatement();
 			Position newPosition = port.getPositions().get(p.getTicker());
-			statement.execute("UPDATE PORTFOLIOS SET SHARES = "+newPosition.getShares()+", PRICE = "+ newPosition.getPrice() + "WHERE TICKER=" + newPosition.getTicker());
+			statement.execute("UPDATE PORTFOLIOS SET SHARES = "+newPosition.getShares()+", PRICE = "+ newPosition.getPrice() + "WHERE TICKER= '" + newPosition.getTicker()+"'");
+			System.out.println("update portfolio with existing stock");
 			return null;
 		} catch (SQLException e){
 			return e.toString();
@@ -663,6 +680,7 @@ public class DBUtil {
 			Connection connection = getConnection();
 			Statement statement = connection.createStatement();
 			statement.execute("INSERT INTO PORTFOLIOS (USERID,TICKER,SHARES,PRICE) VALUES ('"+username+"','"+p.getTicker()+"', "+p.getShares()+", "+ p.getPrice()+")");
+			System.out.println("update portfolio with new stock");
 			return null;
 		} catch (SQLException e){
 			return e.toString();
@@ -673,24 +691,37 @@ public class DBUtil {
 		if (username == null || username.trim().length() == 0)
 			return null;
 		HashMap<String, Position> positionMap = new HashMap<>();
+
 		try {
 			Connection connection = getConnection();
 			Statement statement = connection.createStatement();
-			String query = "SELECT * FROM PORTFOLIOS WHERE USERID = " + username;
+//			Statement statement = connection.createStatement(
+//					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+			System.out.println("connected");
+			String query = "SELECT * FROM PORTFOLIOS ";
+			//			String query = "SELECT * FROM PORTFOLIOS WHERE USERID = '" + username+"'";
 			ResultSet resultSet = statement.executeQuery(query);
+			System.out.println("Retrieved portfolio query.");
+//			System.out.println(resultSet.first());
 
 			while (resultSet.next()) {
 				String ticker = resultSet.getString("TICKER");
+				System.out.println("add stock:" + ticker);
 				int shares = resultSet.getInt("SHARES");
+				System.out.println("add shares: "+shares );
 				double price = resultSet.getDouble("PRICE");
+				System.out.println("add price: " + price);
 				Position p = new Position(ticker, shares, price);
 				positionMap.put(ticker, p);
 			}
 
 		} catch (SQLException e) {
+			System.out.println("Error retrieving portfolio: " + e.getMessage());
 			Log4AltoroJ.getInstance().logError("Error retrieving portfolio: " + e.getMessage());
 		}
 		Portfolio portfolio = new Portfolio(username, positionMap);
+//		System.out.println("Complete creating portfolio");
 		return portfolio;
 	}
 
