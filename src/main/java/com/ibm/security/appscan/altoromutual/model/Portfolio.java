@@ -2,6 +2,7 @@ package com.ibm.security.appscan.altoromutual.model;
 
 import com.ibm.security.appscan.altoromutual.util.DBUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,6 +95,10 @@ public class Portfolio {
         return positionList;
     }
 
+    public List<Double> getList(Map<String, Double> map) {
+        return new ArrayList<>(map.values());
+    }
+
     public Map<String, Double> getWeight() {
         Map<String, Double> weights = new HashMap<>();
         for (Map.Entry<String, Position> pos : positions.entrySet()) {
@@ -102,29 +107,35 @@ public class Portfolio {
         return weights;
     }
 
-//    public double getCov(Position pos1, Position pos2) {
-//
-//    }
+    public double getCov(Position pos1, Position pos2) {
 
-//    public double getPortfolioVol() {
-//        Map<String, Double> assetVol = new HashMap<>();
-//        for (Map.Entry<String, Position> pos : positions.entrySet()) {
-//            assetVol.put(pos.getKey(), pos.getValue().getVolatility());
-//        }
-//        double step_1 = 0;
-//        Map<String, Double> weights = getWeight();
-//
-//        for (String ticker : assetVol.keySet()) {
-//            step_1 += Math.pow(assetVol.get(ticker), 2) * Math.pow(weights.get(ticker), 2);
-//        }
-//        double step_2 = 0;
-//        for (Map.Entry<String, Double> pos1 : weights.entrySet()) {
-//            for (Map.Entry<String, Double> pos2 : assetVol.entrySet()) {
-//                step_2 = pos1.getValue() *
-//            }
-//        }
-//
-//    }
+    }
+
+    public Map<String, Double> getAssetVol(){
+        Map<String, Double> assetVol = new HashMap<>();
+        for (Map.Entry<String, Position> pos : positions.entrySet()) {
+            assetVol.put(pos.getKey(), pos.getValue().getVolatility());
+        }
+        return assetVol;
+    }
+
+    public double getPortfolioVol() {
+        Map<String, Double> assetVol = getAssetVol();
+        double step_1 = 0;
+        Map<String, Double> weights = getWeight();
+
+        for (String ticker : assetVol.keySet()) {
+            step_1 += Math.pow(assetVol.get(ticker), 2) * Math.pow(weights.get(ticker), 2);
+        }
+        double step_2 = 0;
+        for (Map.Entry<String, Double> w1 : weights.entrySet()) {
+            for (Map.Entry<String, Double> w2 : weights.entrySet()) {
+                step_2 += w1.getValue() * w2.getValue() * getCov(positions.get(w1.getKey()), positions.get((w2.getKey())));
+            }
+        }
+        return Math.sqrt(step_1 + step_2);
+
+    }
 
 
 }
