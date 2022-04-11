@@ -25,6 +25,8 @@
             <%@ page import="com.ibm.security.appscan.altoromutual.util.yahooUtil" %>
             <%@ page import="com.ibm.security.appscan.altoromutual.model.Portfolio" %>
             <%@ page import="com.ibm.security.appscan.altoromutual.model.Position" %>
+            <%@ page import="org.jfree.chart.servlet.ServletUtilities" %>
+            <%@ page import="com.ibm.security.appscan.altoromutual.api.ChartAPI" %>
             <%--                <jsp:include page="port_sidebar.jspf.jspf"/>--%>
 
         <%
@@ -221,13 +223,43 @@
                 <!-- Plot BEGINS!-->
                 <div class="w3-card w3-round w3-white">
                     <div class="w3-container w3-padding">
-                        <img src="../images/PriceCompplot.png" class="w3-round" style="height:300px;width:800px" alt="Avatar">
-                        <img src="../images/" class="w3-round" style="height:300px;width:800px" alt="Avatar">
+                        <%
+                            String symbol = request.getParameter("symbol");
+                            String priceFileName= null;
+                            String returnFileName= null;
+                            String autoCorrFileName= null;
+                            String histFileName= null;
+                            String cumRetFileName= null;
+                            String dailyPctFileName= null;
+                            String CAPMFileName= null;
+                            try {
+                                priceFileName = ServletUtilities.saveChartAsPNG(ChartAPI.getPricePlot("AAPL"), 600, 400, null);
+                                System.out.println(priceFileName);
+                                System.out.println("hek");
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        %>
+                        <img src="../images/PriceCompplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+
+                        <img src="DisplayChart?filename=<%=priceFileName %>" class="w3-round" style="height:300px;width:600px" alt="Avatar">
 
                     </div>
 
                     <!-- Plot  ENDS! -->
                 </div>
+
+
+        <div class="fl" style="width: 99%;">
+            <h1>Historical Charts</h1>
+            <form method="post" name="chart" action="chartDetails.jsp" id="chart">
+                <label for="symbol">Input Symbol:</label>
+                <input type="text" id="symbol" name="symbol"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
 
 
 

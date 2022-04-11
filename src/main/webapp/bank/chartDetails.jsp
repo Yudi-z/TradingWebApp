@@ -8,9 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.jfree.chart.servlet.ServletUtilities" %>
 <%@ page import="com.ibm.security.appscan.altoromutual.api.ChartAPI" %>
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="utf-8"%>
-<jsp:include page="header.jspf"/>
+
 
 
 <div id="wrapper" style="width: 99%;">
@@ -28,6 +28,8 @@
         String CAPMFileName= null;
         try {
           priceFileName = ServletUtilities.saveChartAsPNG(ChartAPI.getPricePlot(symbol), 600, 400, null);
+          System.out.println(priceFileName);
+          System.out.println("hek");
 
         } catch (Exception e) {
           e.printStackTrace();
@@ -39,7 +41,10 @@
       </form>
       <img src="DisplayChart?filename=<%=priceFileName %>" alt="API exceeds limit"
            width="400" height="250" />
+
     </div>
   </td>
 </div>
-<jsp:include page="footer.jspf"/>
+<jsp:include page="/footer.jspf"/>
+</body>
+</html>
