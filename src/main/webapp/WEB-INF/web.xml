@@ -235,6 +235,10 @@
     <url-pattern>/bank/addStock</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>TradeServlet</servlet-name>
+    <url-pattern>/bank/tradeStock</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>AdminLoginServlet</servlet-name>
     <url-pattern>/admin/doAdminLogin</url-pattern>
   </servlet-mapping>
