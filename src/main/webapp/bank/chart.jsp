@@ -12,7 +12,7 @@
     <td valign="top" colspan="3" class="bb">
         <div class="fl" style="width: 99%;">
             <h1>Historical Charts</h1>
-            <form method="post" name="chart" action="chartDetails.jsp" id="chart">
+            <form method="post" name="chart" action="chartimp.jsp" id="chart">
                 <label for="symbol">Input Symbol:</label>
                 <input type="text" id="symbol" name="symbol"><br><br>
                 <input type="submit" value="Submit">

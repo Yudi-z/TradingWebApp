@@ -27,20 +27,26 @@
         String dailyPctFileName= null;
         String CAPMFileName= null;
         try {
-          priceFileName = ServletUtilities.saveChartAsPNG(ChartAPI.getPricePlot(symbol), 600, 400, null);
-          System.out.println(priceFileName);
-          System.out.println("hek");
+//          priceFileName = ServletUtilities.saveChartAsPNG(ChartAPI.getPricePlot(symbol), 600, 400, null);
+//          System.out.println(priceFileName);
+//          System.out.println("hek");
 
         } catch (Exception e) {
           e.printStackTrace();
         }
       %>
-      <h1><%=symbol%> Historical Charts</h1>
+      <h1> Charts</h1>
       <form method="post" name="chart" action="chart" id="chart">
         <input type="submit" value="Back to Chart">
       </form>
-      <img src="DisplayChart?filename=<%=priceFileName %>" alt="API exceeds limit"
-           width="400" height="250" />
+      <img src="../images/priceplot.png" alt="API exceeds limit" width="800" height="300" />
+      <img src="../images/PriceCompplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+      <img src="../images/returnplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+      <img src="../images/prevVScurrReturnplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+      <img src="../images/Histplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+      <img src="../images/RetCompplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+      <img src="../images/ScatterCompRetplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+      <img src="../images/ComCumRetplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
 
     </div>
   </td>

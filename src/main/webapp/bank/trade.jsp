@@ -27,6 +27,7 @@
             <%@ page import="com.ibm.security.appscan.altoromutual.model.Position" %>
             <%@ page import="org.jfree.chart.servlet.ServletUtilities" %>
             <%@ page import="com.ibm.security.appscan.altoromutual.api.ChartAPI" %>
+            <%@ page import="org.jfree.chart.ChartFrame" %>
             <%--                <jsp:include page="port_sidebar.jspf.jspf"/>--%>
 
         <%
@@ -89,7 +90,6 @@
                         <input type="submit" class="w3-button w3-theme" name="addButton" value="Review">
                         <%
                             java.lang.String buyTicker1 = request.getParameter("ticker");
-
                         %>
                         <p id="Text_stockPrice" >Stock Price for <%=buyTicker1%> is <%=yahooUtil.getStockPrice(buyTicker1)%></p>
 
@@ -211,39 +211,54 @@
                 <div class="w3-card w3-round w3-white">
                     <div class="w3-container w3-padding">
                         <h6 class="w3-opacity">Enter Stock Ticker to display advanced charts: </h6>
-                        <form method="post" name="stockForm" action="addStock" id="stockForm" width="80%">
-                            Enter Ticker Symbol: <input type="text" name="ticker">
-                            <input type="submit" class="w3-button w3-theme" name="addButton" value="Add">
+                        <form method="post" name="stockForm" action="searchStock" id="stockForm" width="80%">
+                            Enter Ticker Symbol: <input type="text" name="tickr">
+                            <input type="submit" class="w3-button w3-theme" name="addButton" value="Search">
+                            <%
+                                java.lang.String ADV = request.getParameter("tickr");
+                                //System.out.println("here"+ADV);
+                            %>
+<%--                            <img src="../images/priceplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
+<%--                            <script>--%>
+<%--                                setInterval(function(){--%>
+<%--                                    refreshImg();--%>
+<%--                                }, 2000);--%>
+<%--                                // 2000 = 2 seconds, change to whatever you like--%>
+
+<%--                                function refreshImg(){--%>
+<%--                                    var x = document.querySelectorAll("body > img");--%>
+<%--                                    for (var i = x.length - 1; i >= 0; i--) {--%>
+<%--                                        x[i].src = x[i].src + '&' + new Date().getTime();--%>
+<%--                                        console.log(x[i].src);--%>
+<%--                                    };--%>
+<%--                                }--%>
+<%--                            </script>--%>
                         </form>
                     </div>
                     <!-- enter stock to view plot ENDS! -->
                 </div>
-                <br>
+
 
                 <!-- Plot BEGINS!-->
                 <div class="w3-card w3-round w3-white">
                     <div class="w3-container w3-padding">
-                        <%
-                            String symbol = request.getParameter("symbol");
-                            String priceFileName= null;
-                            String returnFileName= null;
-                            String autoCorrFileName= null;
-                            String histFileName= null;
-                            String cumRetFileName= null;
-                            String dailyPctFileName= null;
-                            String CAPMFileName= null;
-                            try {
-                                priceFileName = ServletUtilities.saveChartAsPNG(ChartAPI.getPricePlot("AAPL"), 600, 400, null);
-                                System.out.println(priceFileName);
-                                System.out.println("hek");
+                        <form method="post" name="chart" action="chartimp.jsp" id="chart">
+                            <%--                <label for="symbol">Input Symbol:</label>--%>
+                            <%--                <input type="text" id="symbol" name="symbol"><br><br>--%>
+                            <input type="submit" value="Submit">
+                        </form>
 
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        %>
-                        <img src="../images/PriceCompplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+<%--                        <img src="../images/priceplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
+<%--                        <img src="../images/PriceCompplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
+<%--                        <img src="../images/returnplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
+<%--                        <img src="../images/prevVScurrReturnplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
+<%--                        <img src="../images/Histplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
+<%--                        <img src="../images/RetCompplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
+<%--                        <img src="../images/ScatterCompRetplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
+<%--                        <img src="../images/ComCumRetplot.png" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
 
-                        <img src="DisplayChart?filename=<%=priceFileName %>" class="w3-round" style="height:300px;width:600px" alt="Avatar">
+
+<%--                   <img src="DisplayChart?filename=<%=priceFileName %>" class="w3-round" style="height:300px;width:600px" alt="Avatar">--%>
 
                     </div>
 
@@ -251,14 +266,14 @@
                 </div>
 
 
-        <div class="fl" style="width: 99%;">
-            <h1>Historical Charts</h1>
-            <form method="post" name="chart" action="chartDetails.jsp" id="chart">
-                <label for="symbol">Input Symbol:</label>
-                <input type="text" id="symbol" name="symbol"><br><br>
-                <input type="submit" value="Submit">
-            </form>
-        </div>
+<%--        <div class="fl" style="width: 99%;">--%>
+<%--&lt;%&ndash;            <h1>Historical Charts</h1>&ndash;%&gt;--%>
+<%--            <form method="post" name="chart" action="chartimp.jsp" id="chart">--%>
+<%--&lt;%&ndash;                <label for="symbol">Input Symbol:</label>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                <input type="text" id="symbol" name="symbol"><br><br>&ndash;%&gt;--%>
+<%--                <input type="submit" value="Submit">--%>
+<%--            </form>--%>
+<%--        </div>--%>
 
 
 

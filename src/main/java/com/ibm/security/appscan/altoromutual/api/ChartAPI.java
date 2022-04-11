@@ -267,18 +267,18 @@ public class ChartAPI extends ApplicationFrame {
     }
 
 
-    public static void main(final String[] args) throws
-          SQLException, IOException, ParseException, InterruptedException {
-          String symbol = "AAPL";
-          ChartAPI.getPricePlot(symbol).getPlot();
-          ChartAPI.getReturnsPlot(symbol);
-          ChartAPI.getPrevCurrPlot(symbol);
-          ChartAPI.getHistPlot(symbol);
-          ChartAPI.getCompRetPlot(symbol);
-          ChartAPI.getCompPricePlot(symbol);
-          ChartAPI.getComCumRetAndStkCumRetPlot(symbol);
-          ChartAPI.getScatterCompRetPlot(symbol);
-    }
+//    public static void main(final String[] args) throws
+//          SQLException, IOException, ParseException, InterruptedException {
+//          String symbol = "AAPL";
+//          ChartAPI.getPricePlot(symbol).getPlot();
+//          ChartAPI.getReturnsPlot(symbol);
+//          ChartAPI.getPrevCurrPlot(symbol);
+//          ChartAPI.getHistPlot(symbol);
+//          ChartAPI.getCompRetPlot(symbol);
+//          ChartAPI.getCompPricePlot(symbol);
+//          ChartAPI.getComCumRetAndStkCumRetPlot(symbol);
+//          ChartAPI.getScatterCompRetPlot(symbol);
+//    }
 
 
 
