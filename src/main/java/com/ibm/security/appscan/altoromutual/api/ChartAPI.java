@@ -110,7 +110,7 @@ public class ChartAPI extends ApplicationFrame {
     public static JFreeChart getPricePlot(String ticker) throws SQLException,
             IOException, ParseException, InterruptedException {
         ArrayList<String> dates = yahooUtil.getDate(ticker);
-        ArrayList<Double> closes =yahooUtil.getStockPrice(ticker);
+        ArrayList<Double> closes =yahooUtil.getStockP(ticker);
 
         TimeSeries timeSeries = createTimeSeries(dates, closes, ticker);
         XYDataset dataset = createTimeSeriesCollection(timeSeries);
@@ -201,9 +201,9 @@ public class ChartAPI extends ApplicationFrame {
     public static JFreeChart getCompPricePlot(String ticker) throws SQLException,
             IOException, ParseException, InterruptedException {
         ArrayList<String> stkDays = yahooUtil.getDate(ticker);
-        ArrayList<Double> stkprice = yahooUtil.getStockPrice(ticker);
+        ArrayList<Double> stkprice = yahooUtil.getStockP(ticker);
         ArrayList<String> idxDays = yahooUtil.getDate("SPY");
-        ArrayList<Double> idxprice = yahooUtil.getStockPrice("SPY");
+        ArrayList<Double> idxprice = yahooUtil.getStockP("SPY");
         TimeSeries stkTS = createTimeSeries(stkDays, stkprice, ticker);
         TimeSeries idxTS = createTimeSeries(idxDays, idxprice, "SPY");
         XYDataset dataset = createTimeSeriesCollection(stkTS, idxTS);

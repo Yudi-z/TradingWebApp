@@ -87,7 +87,7 @@ public class yahooUtil {
         }
         return null;
     }
-    public static ArrayList<Double>getStockPrice(String Ticker){
+    public static ArrayList<Double>getStockP(String Ticker){
         ArrayList<Double> prices=new ArrayList<>();
         List<HistoricalQuote> stockHistQuotes = getStock(Ticker);
         for (int i=0;i<stockHistQuotes.size();i++) {
@@ -99,7 +99,7 @@ public class yahooUtil {
     }
     public static ArrayList<Double>getReturns(String Ticker){
         ArrayList<Double> daily_yield = new ArrayList<>();
-        ArrayList<Double> prices = getStockPrice(Ticker);
+        ArrayList<Double> prices = getStockP(Ticker);
         daily_yield.add((double) 0);
         for (int i = 1; i < prices.size(); i++) {
             double this_close = prices.get(i);

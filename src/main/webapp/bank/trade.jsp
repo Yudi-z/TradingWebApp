@@ -199,14 +199,43 @@
                         <h6 class="w3-opacity">Social Media template by w3.css</h6>
                         <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
                         <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i> Post</button>
-
-                        <img src="priceplot.png" class="w3-circle" style="height:800px;width:300px" alt="Avatar">
-
                     </div>
+
                 <!-- Performance card ENDS! -->
                 </div>
+                <br>
+
+                <!-- enter stock to view plot BEGINS! -->
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container w3-padding">
+                        <h6 class="w3-opacity">Enter Stock Ticker to display advanced charts: </h6>
+                        <form method="post" name="stockForm" action="addStock" id="stockForm" width="80%">
+                            Enter Ticker Symbol: <input type="text" name="ticker">
+                            <input type="submit" class="w3-button w3-theme" name="addButton" value="Add">
+                        </form>
+                    </div>
+                    <!-- enter stock to view plot ENDS! -->
+                </div>
+                <br>
+
+                <!-- Plot BEGINS!-->
+                <div class="w3-card w3-round w3-white">
+                    <div class="w3-container w3-padding">
+                        <img src="../images/PriceCompplot.png" class="w3-round" style="height:300px;width:800px" alt="Avatar">
+                        <img src="../images/" class="w3-round" style="height:300px;width:800px" alt="Avatar">
+
+                    </div>
+
+                    <!-- Plot  ENDS! -->
+                </div>
+
+
+
+
+
             </div>
         </div>
+
 
 
         </td>
