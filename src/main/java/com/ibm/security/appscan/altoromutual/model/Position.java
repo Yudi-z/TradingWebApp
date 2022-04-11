@@ -24,6 +24,7 @@ public class Position {
         this.num_share = num_share;
         this.avg_cost_per_share = price;
         start = Calendar.getInstance();
+        start.add(Calendar.YEAR,-1);
     }
 
     public Position(String ticker, int num_share, double price, Calendar start) {
