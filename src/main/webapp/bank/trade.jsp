@@ -59,7 +59,7 @@
                         <tr>
                             <td><%=p.getTicker()%></td>
                             <td><%=p.getName()%></td>
-                            <td><%=p.getShares()%></td>
+                            <td><%=(-p.getShares())%></td>
                             <td><%=p.getPrice()%></td>
                         </tr>
 
