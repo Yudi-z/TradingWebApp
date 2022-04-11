@@ -52,14 +52,14 @@ public class TradeServlet extends HttpServlet {
 //        request.setAttribute("priceFileName",priceFileName);
 //        RequestDispatcher rd=request.getRequestDispatcher("trade.jsp");
 //        rd.forward(request, response);
-        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/priceplot.png"),ChartAPI.getPricePlot(ticker) , 800, 300);
-        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/PriceCompplot.png"),ChartAPI.getCompPricePlot(ticker) , 800, 300);
-        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/ComCumRetplot.png"),ChartAPI.getComCumRetAndStkCumRetPlot(ticker) , 800, 300);
-        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/Histplot.png"),ChartAPI.getHistPlot(ticker) , 800, 300);
-        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/ScatterCompRetplot.png"),ChartAPI.getScatterCompRetPlot(ticker) , 800, 300);
-        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/returnplot.png"),ChartAPI.getReturnsPlot(ticker) , 800, 300);
-        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/prevVScurrReturnplot.png"),ChartAPI.getPrevCurrPlot(ticker) , 800, 300);
-        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/RetCompplot.png"),ChartAPI.getCompRetPlot(ticker) , 800, 300);
+//        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/priceplot.png"),ChartAPI.getPricePlot(ticker) , 800, 300);
+//        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/PriceCompplot.png"),ChartAPI.getCompPricePlot(ticker) , 800, 300);
+//        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/ComCumRetplot.png"),ChartAPI.getComCumRetAndStkCumRetPlot(ticker) , 800, 300);
+//        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/Histplot.png"),ChartAPI.getHistPlot(ticker) , 800, 300);
+//        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/ScatterCompRetplot.png"),ChartAPI.getScatterCompRetPlot(ticker) , 800, 300);
+//        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/returnplot.png"),ChartAPI.getReturnsPlot(ticker) , 800, 300);
+//        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/prevVScurrReturnplot.png"),ChartAPI.getPrevCurrPlot(ticker) , 800, 300);
+//        ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/RetCompplot.png"),ChartAPI.getCompRetPlot(ticker) , 800, 300);
         JFreeChart chart = null;
         String chartType = String.valueOf(request.getParameter("chartSelection"));
 
