@@ -4,6 +4,7 @@ import com.ibm.security.appscan.altoromutual.util.DBUtil;
 import com.ibm.security.appscan.altoromutual.util.OperationsUtil;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
 import org.jfree.chart.servlet.ServletUtilities;
 
 import javax.servlet.RequestDispatcher;
@@ -59,6 +60,43 @@ public class TradeServlet extends HttpServlet {
         ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/returnplot.png"),ChartAPI.getReturnsPlot(ticker) , 800, 300);
         ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/prevVScurrReturnplot.png"),ChartAPI.getPrevCurrPlot(ticker) , 800, 300);
         ChartUtils.saveChartAsPNG(new File("../../../ideaProjects/fintech-512-bigbucks/src/main/webapp/images/RetCompplot.png"),ChartAPI.getCompRetPlot(ticker) , 800, 300);
+        JFreeChart chart = null;
+        String chartType = String.valueOf(request.getParameter("chartSelection"));
+
+        switch(chartType){
+          case "1":
+            chart=ChartAPI.getPricePlot(ticker);
+            ChartUtils.writeChartAsPNG(response.getOutputStream(), chart, 800, 300);
+            break;
+          case "2":
+            chart=ChartAPI.getReturnsPlot(ticker);
+            ChartUtils.writeChartAsPNG(response.getOutputStream(), chart, 800, 300);
+          case "3":
+            chart=ChartAPI.getPrevCurrPlot(ticker);
+            ChartUtils.writeChartAsPNG(response.getOutputStream(), chart, 800, 300);
+          case "4":
+            chart=ChartAPI.getHistPlot(ticker);
+            ChartUtils.writeChartAsPNG(response.getOutputStream(), chart, 800, 300);
+
+          case "5":
+            chart=ChartAPI.getCompPricePlot(ticker);
+            ChartUtils.writeChartAsPNG(response.getOutputStream(), chart, 800, 300);
+          case "6":
+            chart=ChartAPI.getCompRetPlot(ticker);
+            ChartUtils.writeChartAsPNG(response.getOutputStream(), chart, 800, 300);
+          case "7":
+            chart=ChartAPI.getScatterCompRetPlot(ticker);
+            ChartUtils.writeChartAsPNG(response.getOutputStream(), chart, 800, 300);
+          case "8":
+            chart=ChartAPI.getComCumRetAndStkCumRetPlot(ticker);
+            ChartUtils.writeChartAsPNG(response.getOutputStream(), chart, 800, 300);
+
+
+        }
+
+
+
+
 
 
       } catch (SQLException e) {

@@ -118,7 +118,7 @@ public class ChartAPI extends ApplicationFrame {
         String subTitle = ticker + " Prices";
         String xName = "Dates";
         String yName =ticker + " Prices";
-        ChartUtils.saveChartAsPNG(new File("priceplot.png"), ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("priceplot.png"), ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset), 800, 300);
         return ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset);
 
     }
@@ -138,7 +138,7 @@ public class ChartAPI extends ApplicationFrame {
         DateAxis dateAxis = new DateAxis();
         dateAxis.setDateFormatOverride(new SimpleDateFormat("dd-MM-yyyy"));
         xy.setDomainAxis(dateAxis);
-        ChartUtils.saveChartAsPNG(new File("returnplot.png"),   xy.getChart(), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("returnplot.png"),   xy.getChart(), 800, 300);
 
         return ChartFactory.createScatterPlot(subTitle, xName, yName, dataset);
     }
@@ -159,7 +159,7 @@ public class ChartAPI extends ApplicationFrame {
         String subTitle = ticker + " Current Return Vs. Prev Return";
         String xName = ticker + " Prev Returns";
         String yName = ticker + " Curr Returns";
-        ChartUtils.saveChartAsPNG(new File("prevVScurrRetunplot.png"),   ChartFactory.createScatterPlot(subTitle, xName, yName, dataset), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("prevVScurrRetunplot.png"),   ChartFactory.createScatterPlot(subTitle, xName, yName, dataset), 800, 300);
         return ChartFactory.createScatterPlot(subTitle, xName, yName, dataset);
     }
 
@@ -175,8 +175,8 @@ public class ChartAPI extends ApplicationFrame {
         String xName = "Return Bins (%)";
         String yName = "Frequency";
 
-        ChartUtils.saveChartAsPNG(new File("Histplot.png"),   ChartFactory.createHistogram(subTitle, xName, yName, dataset,
-                PlotOrientation.VERTICAL, false, false, false), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("Histplot.png"),   ChartFactory.createHistogram(subTitle, xName, yName, dataset,
+                //PlotOrientation.VERTICAL, false, false, false), 800, 300);
 
         return ChartFactory.createHistogram(subTitle, xName, yName, dataset,
                 PlotOrientation.VERTICAL, false, false, false);
@@ -194,7 +194,7 @@ public class ChartAPI extends ApplicationFrame {
         String subTitle = ticker+" Returns Vs. SPY Returns";
         String xName = "Dates";
         String yName ="Returns";
-        ChartUtils.saveChartAsPNG(new File("RetCompplot.png"),  ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("RetCompplot.png"),  ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset), 800, 300);
         return ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset);
     }
 
@@ -210,7 +210,7 @@ public class ChartAPI extends ApplicationFrame {
         String subTitle = ticker+" Prices Vs. SPY Prices";
         String xName = "Dates";
         String yName = "Price";
-        ChartUtils.saveChartAsPNG(new File("PriceCompplot.png"),  ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("PriceCompplot.png"),  ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset), 800, 300);
         return ChartFactory.createTimeSeriesChart(subTitle, xName, yName, dataset);
     }
 
@@ -238,8 +238,8 @@ public class ChartAPI extends ApplicationFrame {
         String yName = " Cumulative Returns";
         String subTitle2= ticker+" Cumulative Returns vs SPY Cumulative Returns";
 
-        ChartUtils.saveChartAsPNG(new File("CumRetplot.png"),  ChartFactory.createTimeSeriesChart(subTitle, xName, yName, STK), 800, 300);
-        ChartUtils.saveChartAsPNG(new File("ComCumRetplot.png"),  ChartFactory.createTimeSeriesChart(subTitle2, xName, yName, dataset), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("CumRetplot.png"),  ChartFactory.createTimeSeriesChart(subTitle, xName, yName, STK), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("ComCumRetplot.png"),  ChartFactory.createTimeSeriesChart(subTitle2, xName, yName, dataset), 800, 300);
         return ChartFactory.createTimeSeriesChart(subTitle2, xName, yName, dataset);
     }
 
@@ -262,7 +262,7 @@ public class ChartAPI extends ApplicationFrame {
         DateAxis dateAxis = new DateAxis();
         dateAxis.setDateFormatOverride(new SimpleDateFormat("dd-MM-yyyy"));
         xy.setDomainAxis(dateAxis);
-        ChartUtils.saveChartAsPNG(new File("ScatterCompRetplot.png"),   xy.getChart(), 800, 300);
+        //ChartUtils.saveChartAsPNG(new File("ScatterCompRetplot.png"),   xy.getChart(), 800, 300);
         return xy.getChart();
     }
 
