@@ -10,57 +10,50 @@ import static com.ibm.security.appscan.altoromutual.util.yahooUtil.getStock;
 import static com.ibm.security.appscan.altoromutual.util.yahooUtil.mean;
 
 public class Portfolio {
-  private String username;
-  private double cash_balance;
-  private HashMap<String, Position> positions = null;
-  boolean init = false;
+    private String username;
+    private double cash_balance;
+    private HashMap<String, Position> positions = null;
+    boolean init = false;
 
-  public Portfolio(String username, HashMap<String,Position> positions) {
-    this.username=username;
-    this.positions = positions;
-  }
-
-  public boolean contain(Position newPosition) {
-    String ticker = newPosition.getTicker();
-    if(positions.containsKey(ticker)) {
-      return true;
-    }
-    return false;
-  }
-
-  public void add(Position newPosition) {
-    String ticker = newPosition.getTicker();
-    if (contain(newPosition)) {
-      positions.get(ticker).setAvgCost(newPosition.getPrice(), newPosition.getShares());
-    } else {
-      positions.put(ticker, newPosition);
-    }
-    // sell: have already validated that there are enough stock to sell
-    if(newPosition.getShares()<0) {
-      if(positions.get(ticker).getShares()==0) {
-        // remove from the list?
-      }
+    public Portfolio(String username, HashMap<String, Position> positions) {
+        this.username = username;
+        this.positions = positions;
     }
 
-    print();
-  }
-
-  public void print() {
-    int i = 0;
-    for(String ticker: positions.keySet()) {
-      int shares = positions.get(ticker).getShares();
-      System.out.println((i++) +username + " " + ticker + " " + shares);
+    public boolean contain(Position newPosition) {
+        String ticker = newPosition.getTicker();
+        if (positions.containsKey(ticker)) {
+            return true;
+        }
+        return false;
     }
-  }
 
-  public boolean notEnoughStock(Position newPosition) {
-    if(newPosition.getShares()>0) {
-      if(contain(newPosition)) {
-        int sharesOnHand = positions.get(newPosition.getTicker()).getShares();
-        if(sharesOnHand < (-newPosition.getShares())){
-          return true;
+    public void add(Position newPosition) {
+        String ticker = newPosition.getTicker();
+        if (contain(newPosition)) {
+            positions.get(ticker).setAvgCost(newPosition.getPrice(), newPosition.getShares());
+        } else {
+            positions.put(ticker, newPosition);
+        }
+        // sell: have already validated that there are enough stock to sell
+        if (newPosition.getShares() < 0) {
+            if (positions.get(ticker).getShares() == 0) {
+                // remove from the list?
+            }
+        }
+
+        print();
+    }
+
+    public void print() {
+        int i = 0;
+        for (String ticker : positions.keySet()) {
+            int shares = positions.get(ticker).getShares();
+            System.out.println((i++) + username + " " + ticker + " " + shares);
         }
     }
+
+
 
     public boolean notEnoughStock(Position newPosition) {
         if (newPosition.getShares() > 0) {
@@ -114,6 +107,7 @@ public class Portfolio {
 
     /**
      * A map of <b>Ticker</b> to <b>Weight</b> of each position in the portfolio
+     *
      * @return a Map
      */
     public Map<String, Double> getWeight() {
@@ -189,6 +183,5 @@ public class Portfolio {
     }
 
 
-
-
 }
+

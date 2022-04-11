@@ -133,6 +133,4 @@ public class Position {
         return start;
     }
 
-
->>>>>>> src/main/java/com/ibm/security/appscan/altoromutual/model/Position.java
 }
