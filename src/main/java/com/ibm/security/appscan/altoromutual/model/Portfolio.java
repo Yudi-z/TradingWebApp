@@ -22,6 +22,7 @@ public class Portfolio {
 
     public boolean contain(Position newPosition) {
         String ticker = newPosition.getTicker();
+        System.out.println("current holdings: "+ positions.keySet());
         if (positions.containsKey(ticker)) {
             return true;
         }
@@ -56,10 +57,11 @@ public class Portfolio {
 
 
     public boolean notEnoughStock(Position newPosition) {
-        if (newPosition.getShares() > 0) {
+        if (newPosition.getShares() > 0) { //sell
             if (contain(newPosition)) {
                 int sharesOnHand = positions.get(newPosition.getTicker()).getShares();
-                if (sharesOnHand < (-newPosition.getShares())) {
+                System.err.println(newPosition.getTicker()+" holdings: " + -sharesOnHand + " and want to sell " + (newPosition.getShares()));
+                if ((-sharesOnHand) < (newPosition.getShares())) {
                     return true;
                 }
             } else {

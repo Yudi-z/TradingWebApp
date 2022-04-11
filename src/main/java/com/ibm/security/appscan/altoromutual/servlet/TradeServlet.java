@@ -32,6 +32,9 @@ public class TradeServlet extends HttpServlet {
       System.out.println("action is " + action);
       if(action.equals("BUY")) { //buy: negative shares
         shares = -shares;
+        System.out.println("BUY: shares " + shares);
+      }else{
+        System.out.println("SELL: shares " + shares);
       }
 
       if(ticker == null) {
