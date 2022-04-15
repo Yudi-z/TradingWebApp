@@ -70,6 +70,9 @@
 
 
                     </table>
+                <div>
+                    Sharpe Ratio is <%=portfolio.sharpe()%>.
+                </div>
                 </div>
             </div>
             <br>

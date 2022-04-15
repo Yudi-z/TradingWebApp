@@ -14,6 +14,8 @@
         <%@ page import="java.util.List" %>
         <%@ page import="com.ibm.security.appscan.altoromutual.model.Position" %>
         <%@ page import="com.ibm.security.appscan.altoromutual.util.DBUtil" %>
+        <%@ page import="com.ibm.security.appscan.altoromutual.model.Portfolio" %>
+        <%@ page import="java.util.HashMap" %>
 
 
         <!-- Be careful what you change.  All changes are made directly to AltoroJ database. -->
@@ -59,6 +61,15 @@
                 <%
                     }
                 %>
+
+                <%
+                    HashMap<String, Position> positionHashMap = new HashMap<>();
+                    for(Position p :positionList){
+                        positionHashMap.put(p.getTicker(),p);
+                    }
+                    Portfolio portfolio = new Portfolio("admin",positionHashMap);
+                %>
+                    Sharpe ratio of all users is <%=portfolio.sharpe()%>
 
                 <tr>
                     <td colspan="4"><h2><br><br>Today's order summary</h2></td>
