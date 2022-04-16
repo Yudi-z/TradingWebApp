@@ -26,7 +26,10 @@ IBM AltoroJ
 	<jsp:include page="/bank/membertoc.jspf"/>
 	<td valign="top" colspan="3" class="bb">
 		<%@page import="com.ibm.security.appscan.altoromutual.util.ServletUtil"%>
-		
+		<%@ page import="java.util.List" %>
+		<%@ page import="com.ibm.security.appscan.altoromutual.model.Position" %>
+		<%@ page import="com.ibm.security.appscan.altoromutual.util.DBUtil" %>
+
 		<%
 		String[] users = ServletUtil.getBankUsers();
 		
@@ -184,7 +187,7 @@ IBM AltoroJ
 		    </td>
 		  </tr>
 		 </form>
- 		 
+
 		</table>
 		</div>
     </td>

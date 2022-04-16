@@ -236,6 +236,10 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>TradeServlet</servlet-name>
+    <url-pattern>/bank/searchStock</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TradeServlet</servlet-name>
     <url-pattern>/bank/tradeStock</url-pattern>
   </servlet-mapping>
   <servlet-mapping>

@@ -38,7 +38,10 @@ public class Position {
     public double setAvgCost(double cost, int shares) {
         num_share += shares;
         double total = getCost() + cost * shares;
-        avg_cost_per_share = total / num_share;
+        if(num_share>0) {
+            avg_cost_per_share = total / num_share;
+        }
+
         return avg_cost_per_share;
     }
 

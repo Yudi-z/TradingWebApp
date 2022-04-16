@@ -87,12 +87,48 @@ public class yahooUtil {
         }
         return null;
     }
+    public static ArrayList<Double>getStockP(String Ticker){
+        ArrayList<Double> prices=new ArrayList<>();
+        List<HistoricalQuote> stockHistQuotes = getStock(Ticker);
+        for (int i=0;i<stockHistQuotes.size();i++) {
+            Double adjClose = stockHistQuotes.get(i).getAdjClose().doubleValue();
+            prices.add(adjClose);
+
+        }
+        return prices;
+    }
+    public static ArrayList<Double>getReturns(String Ticker){
+        ArrayList<Double> daily_yield = new ArrayList<>();
+        ArrayList<Double> prices = getStockP(Ticker);
+        daily_yield.add((double) 0);
+        for (int i = 1; i < prices.size(); i++) {
+            double this_close = prices.get(i);
+            double prev_close = prices.get(i - 1);
+            double yield = (this_close - prev_close) / prev_close;
+            daily_yield.add(yield);
+        }
+        return daily_yield;
+    }
+
+    public static ArrayList<String>getDate(String Ticker){
+        ArrayList<String> dates=new ArrayList<>();
+        List<HistoricalQuote> stockHistQuotes = getStock(Ticker);
+        for (int i=0;i<stockHistQuotes.size();i++) {
+            Timestamp times = new Timestamp(stockHistQuotes.get(i).getDate().getTimeInMillis());
+            String time=times.toString();
+            dates.add(time);
+        }
+        return dates;
+    }
+
+
 
     /**
      * Only for testing usage
      *
      * @param args
      */
+
     public static void main(String[] args) {
         Stock google = get("GOOG");
         System.out.println(google.getName());
@@ -106,6 +142,7 @@ public class yahooUtil {
             Timestamp time = new Timestamp(stockHistQuotes.get(i).getDate().getTimeInMillis());
             String ret = "Time: "+time + ", Stock: "+ "GOOG" + ", Adjusted close price: "+ adjClose;
             System.out.println(ret);
+           //System.out.println(getReturns("GOOG").get(i));
         }
          */
 //        yahooUtil.getGOOG();
